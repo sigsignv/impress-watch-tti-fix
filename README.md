@@ -6,11 +6,15 @@ Impress Watch 各媒体のサイドバーで発生するレイアウトシフト
 
 Impress Watch ではサイドバーに広告を挿入する際に複数回のレイアウトシフトが発生します。
 
-サイドバーのレイアウトシフトに伴ってスクロール位置がジャンプするなど閲覧に支障があるため、次の対策を行います。
+このレイアウトシフトによってスクロール位置がジャンプするなど閲覧に支障があるため、次の対策を行います。
 
-* 一時的にサイドバーを `visibility: hidden` で隠します
-* 一時的に広告エリアを `margin-top` で広げておき、レイアウトシフトを防ぎます
-* 広告のロードが終了したタイミングを見計らって、サイドバーを復元します
+* 一時的にサイドバーを `display: none` で隠します
+* サイドバーを隠している間に広告が挿入されるため、レイアウトシフトは回避されます
+* 広告のロードが終了したタイミングを見計らってサイドバーを復元します
+
+## Install
+
+[impress-watch-sidebar-fix.user.js](https://github.com/sigsignv/userjs-impress-watch-sidebar-fix/raw/master/impress-watch-sidebar-fix.user.js)
 
 ## Author
 
