@@ -1,7 +1,7 @@
 {
   "name": "Impress Watch: Sidebar fix",
   "namespace": "https://github.com/sigsignv/userjs-impress-watch-sidebar-fix",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Sigsign",
   "license": "MIT or Apache-2.0",
   "match": [
