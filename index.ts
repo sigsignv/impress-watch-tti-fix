@@ -40,3 +40,8 @@ function delaySidebarRendering() {
 
 delaySidebarRendering()
 delayFirstContentfulPaint()
+
+// for testing
+function foo() {
+    const bar = 'baz'
+}
