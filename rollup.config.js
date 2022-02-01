@@ -3,9 +3,9 @@ import metablock from 'rollup-plugin-userscript-metablock'
 
 export default [
   {
-    input: 'index.ts',
+    input: 'src/index.ts',
     output: {
-      file: 'impress-watch-sidebar-fix.user.js',
+      file: 'dist/impress-watch-sidebar-fix.user.js',
       format: 'iife',
       indent: false,
     },
