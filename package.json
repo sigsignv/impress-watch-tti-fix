@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint index.ts",
+    "lint": "eslint src/**/*.ts",
     "watch": "rollup -c -w"
   },
   "devDependencies": {

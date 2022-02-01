@@ -14,7 +14,7 @@ Impress Watch ではサイドバーに広告を挿入する際に複数回のレ
 
 ## Install
 
-[impress-watch-sidebar-fix.user.js](https://github.com/sigsignv/userjs-impress-watch-sidebar-fix/raw/master/impress-watch-sidebar-fix.user.js)
+[dist/impress-watch-sidebar-fix.user.js](https://github.com/sigsignv/userjs-impress-watch-sidebar-fix/raw/main/dist/impress-watch-sidebar-fix.user.js)
 
 ## Author
 
