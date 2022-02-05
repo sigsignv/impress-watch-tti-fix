@@ -1,13 +1,14 @@
 // ==UserScript==
-// @name      Impress Watch: Sidebar fix
-// @namespace https://github.com/sigsignv/userjs-impress-watch-sidebar-fix
-// @version   0.3.0
-// @author    Sigsign
-// @license   MIT or Apache-2.0
-// @match     https://*.watch.impress.co.jp/docs/*
-// @run-at    document-start
+// @name        Impress Watch: Sidebar fix
+// @description Impress Watch 各媒体のサイドバーで発生するレイアウトシフトを減らします
+// @namespace   https://github.com/sigsignv/userjs-impress-watch-sidebar-fix
+// @version     0.3.0
+// @author      Sigsign
+// @license     MIT or Apache-2.0
+// @match       https://*.watch.impress.co.jp/docs/*
+// @run-at      document-start
 // @noframes
-// @grant     none
+// @grant       none
 // ==/UserScript==
 (function () {
 'use strict';
