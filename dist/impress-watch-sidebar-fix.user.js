@@ -4,7 +4,7 @@
 // @namespace   https://github.com/sigsignv/userjs-impress-watch-sidebar-fix
 // @version     0.3.0
 // @author      Sigsign
-// @license     MIT or Apache-2.0
+// @license     Apache-2.0
 // @match       https://*.watch.impress.co.jp/docs/*
 // @run-at      document-start
 // @noframes
