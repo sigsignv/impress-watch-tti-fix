@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Impress Watch: Sidebar fix
 // @description Impress Watch 各媒体のサイドバーで発生するレイアウトシフトを減らします
-// @namespace   https://github.com/sigsignv/userjs-impress-watch-sidebar-fix
+// @namespace   https://github.com/sigsignv/impress-watch-sidebar-fix
 // @version     0.3.1
 // @author      Sigsign
 // @license     Apache-2.0
