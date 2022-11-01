@@ -10,7 +10,7 @@
     "watch": "rollup -c -w"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^8.4.0",
+    "@rollup/plugin-typescript": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "^8.23.0",
