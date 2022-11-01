@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.4.0",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "^8.23.0",
     "rollup": "^2.77.2",
