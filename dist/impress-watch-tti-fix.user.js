@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        Impress Watch: Sidebar fix
-// @description Impress Watch 各媒体のサイドバーで発生するレイアウトシフトを減らします
-// @namespace   https://github.com/sigsignv/impress-watch-sidebar-fix
-// @version     0.3.2
+// @name        Impress Watch: TTI fix
+// @description Reduce TTI (Time to Interactive) in Impress Watch
+// @namespace   https://github.com/sigsignv/impress-watch-tti-fix
+// @version     0.4.0
 // @author      Sigsign
 // @license     Apache-2.0
 // @match       https://*.watch.impress.co.jp/docs/*

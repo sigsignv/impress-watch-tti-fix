@@ -5,7 +5,7 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      file: 'dist/impress-watch-sidebar-fix.user.js',
+      file: 'dist/impress-watch-tti-fix.user.js',
       format: 'iife',
       indent: false,
     },
