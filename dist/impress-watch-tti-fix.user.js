@@ -14,44 +14,102 @@
 'use strict';
 
 /**
-* First Contentful Paint (FCP) を DOMContentLoaded 以降に遅延させてチラつきを防止する
+* First Contentful Paint を遅延させて CLS を防止する
 */
 function delayFirstContentfulPaint() {
     if (document.readyState !== 'loading') {
         return;
     }
-    document.documentElement.style.visibility = 'hidden';
+    document.documentElement.style.display = 'none';
+    document.addEventListener('readystatechange', () => {
+        if (document.readyState !== 'interactive') {
+            return;
+        }
+        // DOMContentLoaded の一番最後に実行する
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.style.display = '';
+        }, { once: true });
+    });
+}
+/**
+ * 画像のデコードを非同期化する
+ */
+function asyncImageDecoding() {
+    const lazyLoader = (img) => {
+        const src = img.attributes.getNamedItem('ajax')?.value;
+        if (!src) {
+            return;
+        }
+        try {
+            const url = new URL(src);
+            if (!url.hostname.endsWith('.impress.co.jp')) {
+                return;
+            }
+        }
+        catch {
+            return;
+        }
+        img.loading = 'lazy';
+        img.src = src;
+        img.attributes.removeNamedItem('ajax');
+    };
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.type !== 'childList') {
+                continue;
+            }
+            for (const n of mutation.addedNodes) {
+                if (n instanceof HTMLImageElement) {
+                    n.decoding = 'async';
+                    lazyLoader(n);
+                }
+            }
+        }
+    });
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+    });
     document.addEventListener('DOMContentLoaded', () => {
-        requestAnimationFrame(() => {
-            document.documentElement.style.visibility = '';
-        });
+        observer.disconnect();
     }, { once: true });
 }
 /**
-* サイドバーを一時的に隠すことでレイアウトシフトの回数を減らす
+* 要素が確定するまでサイドバーを隠して CLS を防止する
 */
 function delaySidebarRendering() {
+    const delayRenderer = (sidebar) => {
+        let timer;
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type !== 'childList') {
+                    return;
+                }
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    observer.disconnect();
+                    const posY = window.scrollY;
+                    sidebar.style.display = '';
+                    window.scroll(0, posY);
+                }, 3 * 1000);
+            }
+        });
+        sidebar.style.display = 'none';
+        observer.observe(sidebar, {
+            childList: true,
+            subtree: true,
+        });
+    };
     document.addEventListener('DOMContentLoaded', () => {
-        // サイドバー
         const sidebar = document.querySelector('aside#extra');
         if (!sidebar) {
-            return console.error('Sidebar is not exists');
+            return;
         }
-        // サイドバーを隠す
-        requestAnimationFrame(() => {
-            sidebar.style.display = 'none';
-        });
-        // 数秒後にサイドバーを戻す
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-                const posY = window.scrollY;
-                sidebar.style.display = '';
-                window.scroll(0, posY);
-            });
-        }, 10 * 1000);
+        delayRenderer(sidebar);
     }, { once: true });
 }
-delaySidebarRendering();
 delayFirstContentfulPaint();
+asyncImageDecoding();
+delaySidebarRendering();
 
 })();
