@@ -57,38 +57,27 @@ function asyncImageDecoding() {
 }
 
 /**
-* 要素が確定するまでサイドバーを隠して CLS を防止する
+* Load イベントまでサイドバーを隠して CLS を防止する
 */
 function delaySidebarRendering() {
-    const delayRenderer = (sidebar: HTMLElement) => {
-        let timer: number | undefined
-
-        const observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.type !== 'childList') {
-                    return
-                }
-                clearTimeout(timer)
-                timer = setTimeout(() => {
-                    observer.disconnect()
-                    const posY = window.scrollY
-                    sidebar.style.display = ''
-                    window.scroll(0, posY)
-                }, 3 * 1000)
-            }
-        })
-        sidebar.style.display = 'none'
-        observer.observe(sidebar, {
-            childList: true,
-            subtree: true,
-        })
-    }
     document.addEventListener('DOMContentLoaded', () => {
         const sidebar = document.querySelector<HTMLElement>('aside#extra')
         if (!sidebar) {
             return
         }
-        delayRenderer(sidebar)
+        sidebar.style.display = 'none'
+        window.addEventListener('load', () => {
+            const idleTask = window.requestIdleCallback?.bind(window) ?? function (cb: VoidFunction) {
+                return setTimeout(() => {
+                    cb()
+                }, 1)
+            }
+            idleTask(() => {
+                const posY = window.scrollY
+                sidebar.style.display = ''
+                window.scroll(0, posY)
+            })
+        }, { once: true })
     }, { once: true })
 }
 
