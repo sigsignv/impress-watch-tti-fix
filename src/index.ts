@@ -6,14 +6,10 @@ function delayFirstContentfulPaint() {
         return
     }
     document.documentElement.style.display = 'none'
-    document.addEventListener('readystatechange', () => {
-        if (document.readyState !== 'interactive') {
-            return
-        }
-        // DOMContentLoaded の一番最後に実行する
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+        requestAnimationFrame(() => {
             document.documentElement.style.display = ''
-        }, { once: true })
+        })
     })
 }
 
