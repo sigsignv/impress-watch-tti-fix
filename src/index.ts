@@ -5,10 +5,10 @@ function delayFirstContentfulPaint() {
     if (document.readyState !== 'loading') {
         return
     }
-    document.documentElement.style.display = 'none'
+    document.documentElement.style.visibility = 'hidden'
     document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => {
-            document.documentElement.style.display = ''
+            document.documentElement.style.visibility = ''
         })
     })
 }
