@@ -71,7 +71,7 @@ function asyncImageDecoding() {
     }, { once: true });
 }
 /**
-* Load イベントまでサイドバーを隠して CLS を防止する
+* アイドル状態になるまでサイドバーを隠して CLS を防止する
 */
 function delaySidebarRendering() {
     document.addEventListener('DOMContentLoaded', () => {
@@ -79,17 +79,21 @@ function delaySidebarRendering() {
         if (!sidebar) {
             return;
         }
-        sidebar.style.display = 'none';
+        requestAnimationFrame(() => {
+            sidebar.style.display = 'none';
+        });
         window.addEventListener('load', () => {
             const idleTask = window.requestIdleCallback?.bind(window) ?? function (cb) {
                 return setTimeout(() => {
                     cb();
-                }, 1);
+                }, 3 * 1000);
             };
             idleTask(() => {
-                const posY = window.scrollY;
-                sidebar.style.display = '';
-                window.scroll(0, posY);
+                requestAnimationFrame(() => {
+                    const posY = window.scrollY;
+                    sidebar.style.display = '';
+                    window.scroll(0, posY);
+                });
             });
         }, { once: true });
     }, { once: true });
