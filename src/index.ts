@@ -55,18 +55,18 @@ function delaySidebarRendering() {
             sidebar.style.display = 'none'
         })
         window.addEventListener('load', () => {
-            const idleTask = window.requestIdleCallback?.bind(window) ?? function (cb: VoidFunction) {
-                return setTimeout(() => {
-                    cb()
-                }, 3 * 1000)
-            }
-            idleTask(() => {
+            const comebackSidebar = () => {
                 requestAnimationFrame(() => {
                     const posY = window.scrollY
                     sidebar.style.display = ''
                     window.scroll(0, posY)
                 })
-            })
+            }
+            if (typeof window.requestIdleCallback === 'function') {
+                requestIdleCallback(comebackSidebar)
+            } else {
+                setTimeout(comebackSidebar, 1)
+            }
         }, { once: true })
     }, { once: true })
 }
