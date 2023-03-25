@@ -17,43 +17,29 @@ function delayFirstContentfulPaint() {
  * 画像のデコードを非同期化する
  */
 function asyncImageDecoding() {
-    const lazyLoader = (img: HTMLImageElement) => {
+    const lazyLoad = async (img: HTMLImageElement) => {
         const src = img.attributes.getNamedItem('ajax')?.value
         if (!src) {
             return
         }
-        try {
-            const url = new URL(src)
-            if (!url.hostname.endsWith('.impress.co.jp')) {
-                return
-            }
-        } catch {
+        const url = new URL(src)
+        if (!url.hostname.endsWith('.impress.co.jp')) {
             return
         }
         img.loading = 'lazy'
         img.src = src
         img.attributes.removeNamedItem('ajax')
     }
-    const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (mutation.type !== 'childList') {
-                continue
-            }
-            for (const n of mutation.addedNodes) {
-                if (n instanceof HTMLImageElement) {
-                    n.decoding = 'async'
-                    lazyLoader(n)
-                }
-            }
+    document.addEventListener('readystatechange', () => {
+        if (document.readyState !== 'interactive') {
+            return
+        }
+        const images = document.querySelectorAll('img')
+        for (const img of images) {
+            img.decoding = 'async'
+            lazyLoad(img)
         }
     })
-    observer.observe(document.documentElement, {
-        childList: true,
-        subtree: true,
-    })
-    document.addEventListener('DOMContentLoaded', () => {
-        observer.disconnect()
-    }, { once: true })
 }
 
 /**
