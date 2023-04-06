@@ -71,6 +71,42 @@ function delaySidebarRendering() {
     }, { once: true })
 }
 
+/**
+ * URL に応じて UserCSS を追加する
+ */
+function injectStyle(userStyle: Record<string, string[]>) {
+    const url = new URL(document.URL)
+    const canonical = `${url.hostname}${url.pathname}`
+    const rules = Object.entries(userStyle).filter(([key, ]) => {
+        return canonical.includes(key)
+    }).flatMap(([, arr]) => arr)
+    const style = document.createElement('style')
+    style.setAttribute('type', 'text/css')
+    style.append(...rules)
+    if (document.readyState !== 'loading') {
+        requestAnimationFrame(() => {
+            document.head.appendChild(style)
+        })
+    } else {
+        document.addEventListener('DOMContentLoaded', () => {
+            document.head.appendChild(style)
+        })
+    }
+}
+
+const UserStyle = {
+    '.impress.co.jp': [
+        `aside.ad .OUTBRAIN { display: none; }`,
+        `#taboola-below-article-thumbnails-top-desktop { display: none; }`,
+        `#taboola-below-article-thumbnails-bottom-desktop { display: none; }`,
+        `article .main-contents .ad-inline { display: none; }`,
+    ],
+    'pc.watch.impress.co.jp': [
+        `#pc-rakuten-ranking, #pc-amazon-ranking { display: none; }`,
+    ],
+}
+
 delayFirstContentfulPaint()
 asyncImageDecoding()
 delaySidebarRendering()
+injectStyle(UserStyle)
