@@ -60,6 +60,7 @@ function delaySidebarRendering() {
                     const posY = window.scrollY
                     sidebar.style.display = ''
                     window.scroll(0, posY)
+                    document.body.classList.remove("ad-trace")
                 })
             }
             if (typeof window.requestIdleCallback === 'function') {
