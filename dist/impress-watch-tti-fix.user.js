@@ -69,20 +69,22 @@ function delaySidebarRendering() {
             sidebar.style.display = 'none';
         });
         window.addEventListener('load', () => {
-            const comebackSidebar = () => {
+            const restoreSidebar = () => {
                 requestAnimationFrame(() => {
                     const posY = window.scrollY;
                     sidebar.style.display = '';
-                    window.scroll(0, posY);
                     document.body.classList.remove("ad-trace");
+                    window.scroll(0, posY);
                 });
             };
-            if (typeof window.requestIdleCallback === 'function') {
-                requestIdleCallback(comebackSidebar);
-            }
-            else {
-                setTimeout(comebackSidebar, 1);
-            }
+            setTimeout(() => {
+                if (typeof window.requestIdleCallback === 'function') {
+                    requestIdleCallback(restoreSidebar);
+                }
+                else {
+                    restoreSidebar();
+                }
+            }, 3 * 1000);
         }, { once: true });
     }, { once: true });
 }
