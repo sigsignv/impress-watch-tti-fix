@@ -3,7 +3,7 @@
   "description": "Reduce TTI (Time to Interactive) in Impress Watch",
   "namespace": "https://github.com/sigsignv/impress-watch-tti-fix",
   "updateURL": "https://github.com/sigsignv/impress-watch-tti-fix/raw/main/dist/impress-watch-tti-fix.user.js",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Sigsign",
   "license": "Apache-2.0",
   "match": [
